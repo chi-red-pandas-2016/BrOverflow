@@ -11,11 +11,11 @@ Comment.delete_all
 end
 
 20.times do
-  Question.create!(text: "#{Faker::Hipster.sentence}?", user_id: User.all.sample)
+  Question.create!(text: "Do you even #{Faker::Hacker.verb}, bro?", user_id: User.all.sample)
 end
 
 50.times do
-  Answer.create!(text: "#{Faker::Hipster.paragraph}", user_id: User.all.sample)
+  Answer.create!(text: "#{Faker::Hacker.say_something_smart[0...-1], bro!}", user_id: User.all.sample)
 end
 
 75.times do
