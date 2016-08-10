@@ -1,3 +1,5 @@
 <% @questions.each do |question| %>
   <p><a href="/questions/<%= question.id %>"><%= question.title %></a></p>
 <% end %>
+
+<p><a href="/questions/new">Ask a question!</a></p>
