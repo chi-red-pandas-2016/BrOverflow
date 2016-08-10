@@ -7,3 +7,15 @@
   <p><%= answer.text %></p>
   <p><strong><%= answer.user.username %></strong></p>
 <% end %>
+
+<p><%= @errors %></p>
+<form method="post" action="/answers">
+  <label for="text">Add your answer</label>
+  <br>
+  <input id="text_input" name="answer[text]" type="text">
+
+
+  <!-- <input type="submit" value="Submit answer" class="button"> -->
+  <br>
+  <button name="question" type="submit" value="<%= @question.id %>">Submit answer</button>
+</form>
