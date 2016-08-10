@@ -1,0 +1,9 @@
+<h3><%= @question.title %></h3>
+<p><%= @question.body %> </p>
+<p><%= @question.user.username %></p>
+
+<% @answers.each do |answer| %>
+  <p>-----------------</p>
+  <p><%= answer.text %></p>
+  <p><strong><%= answer.user.username %></strong></p>
+<% end %>
