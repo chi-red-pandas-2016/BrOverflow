@@ -1,13 +1,13 @@
 <% if @errors %>
   <% @errors.each do |error| %>
-    <%= erb :"/_error", locals:{error:error}%>
+    <%= erb :"/_errors", locals:{error:error}%>
   <% end %>
 <% end %>
 
-<form action="/sessions" method="post">
+<form action="/login" method="post">
     <p><label for="username">Username:</label>
-    <input type="text" name="username" placeholder="Username"><p>
-    <p><label for="plaintext_password" >Password:</label>
-    <input type="password" name="plaintext_password" placeholder="Password"><p>
+    <input type="text" name="user[username]" placeholder="Username"><p>
+    <p><label for="password" >Password:</label>
+    <input type="password" name="user[password]" placeholder="Password"><p>
     <input type="submit" value="Log In">
 </form>
