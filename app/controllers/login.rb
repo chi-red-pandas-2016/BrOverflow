@@ -14,7 +14,7 @@ post '/login' do
     redirect "/questions"
   else
     @errors << "Invalid Username or Password, BRO!"
-    erb :"/login"
+    erb :"/login/index"
   end
 end
 
