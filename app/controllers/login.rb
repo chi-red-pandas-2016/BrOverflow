@@ -3,18 +3,18 @@ before do
 end
 
 
-get '/login/new' do
-  erb :"/logins/new"
+get '/login' do
+  erb :"/login/index"
 end
 
 post '/login' do
   user = User.find_by(username: params[:user][:username])
   if user && user.authenticate(params[:user][:password])
     session[:user_id] = user.id
-    redirect "/users/#{user.id}"
+    redirect "/questions"
   else
     @errors << "Invalid Username or Password, BRO!"
-    erb :"/logins/new"
+    erb :"/login"
   end
 end
 

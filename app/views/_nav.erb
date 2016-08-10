@@ -1,12 +1,9 @@
 <nav>
   <ul>
-  <li><a href="/">Home</a></li>
     <% if logged_in? %>
-    <li><form action="/logout" method="GET">
-      <input type="submit" value="Log out">
-    </form></li>
+    <li><a href="/logout">Logout</a></li>
     <% else %>
-    <li><a href="/login/new">Log in</a></li>
+    <li><a href="/login">Log in</a></li>
     <li><a href="/users/new">Register</a></li>
     <% end %>
   </ul>

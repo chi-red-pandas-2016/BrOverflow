@@ -9,7 +9,7 @@ helpers do
   end
 
   def authorize!
-    redirect '/login/new' unless logged_in?
+    redirect '/login' unless logged_in?
   end
-  
+
 end
