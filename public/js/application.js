@@ -3,15 +3,23 @@ $(document).ready(function() {
   $('.vote-buttons-container').on("click", ".vote-button", function(e){
     e.preventDefault();
     var $form = $(this).parent();
-    var path = $form.serialize();
-    console.log($(this).attr('value'));
+    value = $(this).attr('value');
+    route_url = ($form.attr('action'))
 
-  //   $.ajax({
-  //     url: $form.attr('action'),
-  //     type: $form.attr('method'),
-  //     data: {vote: postId},
-  //     dataType: 'json'
-  //   })
+    if (route_url.length > 5) {
+      route_type = "PUT";
+    } else {
+      route_type = "POST"
+    }
+
+    $.ajax({
+      url: route_url,
+      type: route_type,
+      data: {vote: value}
+    })
+    .done(function(new_count) {
+      
+    }
   })
 
 })

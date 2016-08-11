@@ -1,4 +1,8 @@
 post '/votes' do
+  if request.xhr?
+    
+    return
+  end
   if params[:question_id]
     voteable_type = Question.find(params[:question_id])
   else
@@ -9,6 +13,10 @@ post '/votes' do
 end
 
 put '/votes/:vote_id' do
+  if request.xhr?
+    p "PUT!"
+    return
+  end
   vote = Vote.find(params[:vote_id])
   if params[:vote] != vote.value.to_s
     vote.update_attribute(:value, params[:vote])
