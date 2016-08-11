@@ -19,7 +19,7 @@
 <p><%= @question.body %> </p>
 <p><%= @question.user.username %></p>
 
-<% if @question.user.id == current_user.id %>
+<% if allowed?(@question) %>
   <form method="post" action="/questions/<%= @question.id %>">
     <input type="hidden" name="_method" value="put">
     <button type="submit">edit question</button>
@@ -53,22 +53,17 @@
   <p><%= answer.total_votes %></p>
   <p><strong><%= answer.user.username %></strong></p>
 
-  <% if answer.user.id == current_user.id %>
-    <form method="post" action="/answers/<%= answer.id %>">
+  <% if allowed?(@question) %>
+      <form method="post" action="/answers/<%= answer.id %>">
       <input type="hidden" name="_method" value="put">
       <button type="submit">edit answer</button>
     </form>
   <% end %>
-  <% answer.comments.each do |comment| %>
-  <p> <%= comment.text %> </p>
-  <p> <%= comment.user.username %> </p>
-
 
   <% if allowed?(answer) %>
-  <form method="post" action="/answers/<%= answer.id %>">
-  <%= erb :'/_delete' %>
-  </form>
-
+    <form method="post" action="/answers/<%= answer.id %>">
+    <%= erb :'/_delete' %>
+    </form>
   <% end %>
 
   <% answer.comments.each do |comment| %>
