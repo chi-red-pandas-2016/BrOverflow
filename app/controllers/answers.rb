@@ -36,3 +36,16 @@ delete '/answers/:answer_id/comments/:id' do
   comment.destroy
   redirect "/questions/#{question.id}"
 end
+
+get '/answers/:answer_id/edit' do
+  @answer = Answer.find(params[:answer_id])
+  redirect '/' unless allowed?(@answer)
+  erb :"/answers/edit"
+end
+
+put '/answers/:answer_id' do
+  answer = Answer.find(params[:answer_id])
+  question = answer.question
+  answer.update_attributes(text: params[:text])
+  redirect "/questions/#{question.id}"
+end

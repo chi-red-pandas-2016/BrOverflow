@@ -4,8 +4,8 @@
     <% if logged_in? %>
     <li><a href="/">Home</a></li>
     <li><a href="/logout">Logout</a></li>
-
     <li><a href="/users/<%= current_user.id %>">Profile</a></li>
+
     <% else %>
     <li><a href="/questions">Home</a></li>
     <li><a href="/login">Log in</a></li>
