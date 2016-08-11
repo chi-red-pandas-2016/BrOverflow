@@ -49,12 +49,17 @@ delete '/questions/:id' do
   redirect '/'
 end
 
+put '/questions/:question_id' do
+ p "hello"
+end
+
 delete '/questions/:question_id/comments/:id' do
   question = Question.find(params[:question_id])
   comment = Comment.find(params[:id])
   comment.destroy
   redirect "/questions/#{question.id}"
 end
+
 
 
 
