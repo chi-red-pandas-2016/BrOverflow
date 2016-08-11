@@ -31,20 +31,30 @@ end
 
 post '/questions/:question_id/comments' do
   question = Question.find(params[:commentable])
-  puts '----------------------------'
   comment = question.comments.new(params[:comment])
   comment.user_id = session[:user_id]
   comment
-  if comment.save
-  else
-    @errors = @comment.errors.full_messages
-  end
-  @question = Question.find(params[:commentable])
+  # if comment.save
+  # else
+    @errors = comment.errors.full_messages unless comment.save
+  # end
+  @question = question
   @answers = Answer.where(question_id: @question.id)
   erb :"/questions/show"
 end
 
+delete '/questions/:id' do
+  question = Question.find(params[:id])
+  question.destroy
+  redirect '/'
+end
 
+delete '/questions/:question_id/comments/:id' do
+  question = Question.find(params[:question_id])
+  comment = Comment.find(params[:id])
+  comment.destroy
+  redirect "/questions/#{question.id}"
+end
 
 
 
