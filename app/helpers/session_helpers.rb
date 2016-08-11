@@ -12,4 +12,8 @@ helpers do
     redirect '/login' unless logged_in?
   end
 
+  def allowed?(query)
+    session[:user_id] == query.user_id
+  end
+
 end

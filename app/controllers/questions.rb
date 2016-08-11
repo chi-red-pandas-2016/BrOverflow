@@ -38,6 +38,7 @@ post '/questions/:question_id/comments' do
   # else
     @errors = comment.errors.full_messages unless comment.save
   # end
+  @question = question
   @answers = Answer.where(question_id: @question.id)
   erb :"/questions/show"
 end
@@ -48,7 +49,12 @@ delete '/questions/:id' do
   redirect '/'
 end
 
-
+delete '/questions/:question_id/comments/:id' do
+  question = Question.find(params[:question_id])
+  comment = Comment.find(params[:id])
+  comment.destroy
+  redirect "/questions/#{question.id}"
+end
 
 
 

@@ -18,12 +18,21 @@
 <h3><%= @question.title %></h3>
 <p><%= @question.body %> </p>
 <p><%= @question.user.username %></p>
+
+<% if allowed?(@question) %>
  <form method="post" action="/questions/<%= @question.id %>">
   <%= erb :'/_delete' %>
  </form>
+<% end %>
 <% @question.comments.each do |comment| %>
   <p> <%= comment.text %> </p>
   <p> <%= comment.user.username %> </p>
+
+  <% if allowed?(comment) %>
+    <form method="post" action="/questions/<%= @question.id %>/comments/<%= comment.id%>">
+    <%= erb :'/_delete' %>
+    </form>
+  <% end %>
 <% end %>
 <form method="post" action="/questions/<%= @question.id %>/comments">
 <%= erb :"_addcomments" %>
@@ -35,6 +44,12 @@
   <p><%= answer.text %></p>
   <p><%= answer.total_votes %></p>
   <p><strong><%= answer.user.username %></strong></p>
+
+  <% if allowed?(answer) %>
+  <form method="post" action="/answers/<%= answer.id %>">
+  <%= erb :'/_delete' %>
+  </form>
+<% end %>
 
   <% answer.comments.each do |comment| %>
   <p> <%= comment.text %> </p>
@@ -69,3 +84,5 @@
   <br>
   <button name="question" type="submit" value="<%= @question.id %>">Submit answer</button>
 </form>
+
+
