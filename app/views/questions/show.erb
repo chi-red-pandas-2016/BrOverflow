@@ -1,3 +1,19 @@
+<% if logged_in? %>
+  <% if @question.user_has_voted?(current_user) %>
+    <form method="post" action="/votes/<%= @question.get_vote_id(current_user) %>">
+      <input type="hidden" name="_method" value="put">
+      <button type="submit" name="vote" value="1">upvote</button>
+      <button type="submit" name="vote" value="-1">downvote</button>
+    </form>
+  <% else %>
+    <form method="post" action="votes" >
+      <input type="hidden" name="question_id" value="<%= @question.id %>">
+      <button type="submit" name="vote" value="1">upvote</button>
+      <button type="submit" name="vote" value="-1">downvote</button>
+    </form>
+  <% end %>
+<% end %>
+<p><%= @question.total_votes %></p>
 <h3><%= @question.title %></h3>
 <p><%= @question.body %> </p>
 <p><%= @question.user.username %></p>
@@ -9,8 +25,26 @@
 <% @answers.each do |answer| %>
   <p>-----------------</p>
   <p><%= answer.text %></p>
+  <p><%= answer.total_votes %></p>
   <p><strong><%= answer.user.username %></strong></p>
+
   <%= erb :"_addcomments" %>
+
+  <% if logged_in? %>
+    <% if answer.user_has_voted?(current_user) %>
+      <form method="post" action="/votes/<%= answer.get_vote_id(current_user) %>">
+        <input type="hidden" name="_method" value="put">
+        <button type="submit" name="vote" value="1">upvote</button>
+        <button type="submit" name="vote" value="-1">downvote</button>
+      </form>
+    <% else %>
+      <form method="post" action="/votes" >
+        <input type="hidden" name="answer_id" value="<%= answer.id %>">
+        <button type="submit" name="vote" value="1">upvote</button>
+        <button type="submit" name="vote" value="-1">downvote</button>
+      </form>
+    <% end %>
+  <% end %>
 
 <% end %>
 
