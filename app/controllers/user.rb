@@ -18,5 +18,9 @@ post "/users" do
 end
 
 get "/users/:id" do
-  redirect :"/"
+  if logged_in?
+    redirect :"/"
+  else
+    redirect :"/login"
+  end
 end
