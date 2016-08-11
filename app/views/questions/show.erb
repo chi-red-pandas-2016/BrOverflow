@@ -19,7 +19,6 @@
 <p><%= @question.body %> </p>
 <p><%= @question.user.username %></p>
 
-<<<<<<< HEAD
 <% if @question.user.id == current_user.id %>
   <form method="post" action="/questions/<%= @question.id %>">
     <input type="hidden" name="_method" value="put">
@@ -27,13 +26,12 @@
   </form>
 <% end %>
 
-=======
 <% if allowed?(@question) %>
  <form method="post" action="/questions/<%= @question.id %>">
   <%= erb :'/_delete' %>
  </form>
 <% end %>
->>>>>>> a1c8938b396d7044f373e39a6a0c07275b316573
+
 <% @question.comments.each do |comment| %>
   <p> <%= comment.text %> </p>
   <p> <%= comment.user.username %> </p>
