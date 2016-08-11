@@ -19,7 +19,7 @@
     <% end %>
   </div>
 
-  <p><%= @question.total_votes %></p>
+  <p class="vote-total"><%= @question.total_votes %></p>
   <div class="title-container">
     <h3 class="question-show-title"><%= @question.title %></h3>
     <p><%= @question.body %> </p>
@@ -52,14 +52,35 @@
 <% end %>
 <form method="post" action="/questions/<%= @question.id %>/comments">
 <%= erb :"_addcomments" %>
-<button name="commentable" type="submit" value="<%= @question.id %>">Submit your comment</button>
+<button name="commentable" type="submit" value="<%= @question.id %>">comment</button>
 </form>
 
 
 <% @answers.each do |answer| %>
-  <p><%= answer.text %></p>
-  <p><%= answer.total_votes %></p>
-  <p><strong><%= answer.user.username %></strong></p>
+  <div class="answer-container">
+    <div class="container">
+      <% if logged_in? %>
+        <% if answer.user_has_voted?(current_user) %>
+          <form method="post" action="/votes/<%= answer.get_vote_id(current_user) %>">
+            <input type="hidden" name="_method" value="put">
+            <button type="submit" name="vote" class= "triangle-up" value="1"></button>
+            <button type="submit" name="vote" class="triangle-down" value="-1"></button>
+          </form>
+        <% else %>
+          <form method="post" action="/votes" >
+            <input type="hidden" name="answer_id" value="<%= answer.id %>">
+            <button type="submit" name="vote" class= "triangle-up" value="1"></button>
+            <button type="submit" name="vote" class="triangle-down" value="-1"></button>
+          </form>
+        <% end %>
+      <% end %>
+    </div>
+    <p class="answer-vote-total"><%= answer.total_votes %></p>
+    <div class="title-container">
+      <p><%= answer.text %></p>
+      <p><strong><%= answer.user.username %></strong></p>
+    </div>
+  </div>
 
   <% if allowed?(@question) %>
       <form method="post" action="/answers/<%= answer.id %>">
@@ -88,32 +109,15 @@
 
   <form method="post" action="/answers/<%= answer.id %>/comments">
   <%= erb :"_addcomments" %>
-  <button name="commentable" type="submit" value="<%= answer.id %>">Submit your comment</button>
+  <button name="commentable" type="submit" value="<%= answer.id %>">comment</button>
   </form>
-  <div class="container">
-    <% if logged_in? %>
-      <% if answer.user_has_voted?(current_user) %>
-        <form method="post" action="/votes/<%= answer.get_vote_id(current_user) %>">
-          <input type="hidden" name="_method" value="put">
-          <button type="submit" name="vote" class= "triangle-up" value="1"></button>
-          <button type="submit" name="vote" class="triangle-down" value="-1"></button>
-        </form>
-      <% else %>
-        <form method="post" action="/votes" >
-          <input type="hidden" name="answer_id" value="<%= answer.id %>">
-          <button type="submit" name="vote" class= "triangle-up" value="1"></button>
-          <button type="submit" name="vote" class="triangle-down" value="-1"></button>
-        </form>
-      <% end %>
-    <% end %>
-  </div>
 <% end %>
 <form method="post" action="/answers">
   <label for="text">Add your answer</label>
   <br>
   <input id="text_input" name="answer[text]" type="text">
   <br>
-  <button name="question" type="submit" value="<%= @question.id %>">Submit answer</button>
+  <button name="question" type="submit" value="<%= @question.id %>">answer</button>
 </form>
 
 
