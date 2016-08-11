@@ -49,8 +49,16 @@ delete '/questions/:id' do
   redirect '/'
 end
 
+get '/questions/:question_id/edit' do
+  @question = Question.find(params[:question_id])
+  redirect '/' unless allowed?(@answer)
+  erb :"/questions/edit"
+end
+
 put '/questions/:question_id' do
- p "hello"
+  question = Question.find(params[:question_id])
+  question.update_attributes(body: params[:body], title: params[:title])
+  redirect "/questions/#{question.id}"
 end
 
 delete '/questions/:question_id/comments/:id' do

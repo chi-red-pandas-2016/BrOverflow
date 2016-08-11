@@ -1,0 +1,8 @@
+<form method="post" action="/answers/<%= @answer.id %>">
+  <input type="hidden" name="_method" value="put">
+  <label for="title">text</label>
+  <br>
+  <input type="text" name="text" value="<%= @answer.text %>">
+  <br>
+  <button type="submit">edit answer</button>
+</form>
