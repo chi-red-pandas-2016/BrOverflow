@@ -4,11 +4,12 @@ get '/questions' do
 end
 
 get '/questions/new' do
-  # if user = User.find(session[:user_id])
+  user = self.current_user
+  if logged_in?
     erb :"/questions/new"
-  # else
-  #   redirect '/login'
-  # end
+  else
+    redirect '/login'
+  end
 end
 
 post '/questions' do
@@ -27,6 +28,23 @@ get '/questions/:question_id' do
   @answers = Answer.where(question_id: @question.id)
   erb :'/questions/show'
 end
+
+post '/questions/:question_id/comments' do
+  question = Question.find(params[:commentable])
+  puts '----------------------------'
+  comment = question.comments.new(params[:comment])
+  comment.user_id = session[:user_id]
+  comment
+  if comment.save
+  else
+    @errors = @comment.errors.full_messages
+  end
+  @question = Question.find(params[:commentable])
+  @answers = Answer.where(question_id: @question.id)
+  erb :"/questions/show"
+end
+
+
 
 
 
