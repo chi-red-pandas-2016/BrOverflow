@@ -1,6 +1,8 @@
 post '/answers' do
   p params.inspect
-  @answer = Answer.new(text: params[:answer], question_id: params[:question], user_id: session[:user_id] )
+  @answer = Answer.new(params[:answer])
+  @answer.question_id = params[:question]
+  @answer.user_id = session[:user_id]
   if @answer.save
 
   else

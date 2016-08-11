@@ -1,0 +1,22 @@
+
+
+
+<p><%=question.total_votes%></p>
+<p><a href="/questions/<%= question.id %>"><%= question.title %></a></p>
+<p>Created <%=   question.created_at %> by <%= question.user.username %></p>
+
+<% if logged_in? %>
+  <% if question.user_has_voted?(current_user) %>
+    <form method="post" action="/votes/<%= question.get_vote_id(current_user) %>">
+      <input type="hidden" name="_method" value="put">
+      <button type="submit" name="vote" value="1">upvote</button>
+      <button type="submit" name="vote" value="-1">downvote</button>
+    </form>
+  <% else %>
+    <form method="post" action="votes" >
+      <input type="hidden" name="question_id" value="<%= question.id %>">
+      <button type="submit" name="vote" value="1">upvote</button>
+      <button type="submit" name="vote" value="-1">downvote</button>
+    </form>
+  <% end %>
+<% end %>
