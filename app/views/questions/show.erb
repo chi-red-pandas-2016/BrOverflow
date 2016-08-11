@@ -1,11 +1,17 @@
 <h3><%= @question.title %></h3>
 <p><%= @question.body %> </p>
 <p><%= @question.user.username %></p>
+<% @question.comments.each do |comment| %>
+  <p> <%= comment.text %> </p>
+<% end %>
+<%= erb :"_addcomments" %>
 
 <% @answers.each do |answer| %>
   <p>-----------------</p>
   <p><%= answer.text %></p>
   <p><strong><%= answer.user.username %></strong></p>
+  <%= erb :"_addcomments" %>
+
 <% end %>
 
 <p><%= @errors %></p>
@@ -13,9 +19,6 @@
   <label for="text">Add your answer</label>
   <br>
   <input id="text_input" name="answer[text]" type="text">
-
-
-  <!-- <input type="submit" value="Submit answer" class="button"> -->
   <br>
   <button name="question" type="submit" value="<%= @question.id %>">Submit answer</button>
 </form>
