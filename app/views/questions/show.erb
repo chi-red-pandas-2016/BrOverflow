@@ -1,23 +1,31 @@
-<% if logged_in? %>
-  <% if @question.user_has_voted?(current_user) %>
-    <form method="post" action="/votes/<%= @question.get_vote_id(current_user) %>">
-      <input type="hidden" name="_method" value="put">
-      <button type="submit" name="vote" class= "triangle-up" value="1">upvote</button>
-      <button type="submit" name="vote" class= "triangle-down" value="-1">downvote</button>
-    </form>
-  <% else %>
-    <form method="post" action="/votes" >
-      <input type="hidden" name="question_id" value="<%= @question.id %>">
-      <button type="submit" name="vote" class= "triangle-up" value="1">upvote</button>
-      <button type="submit" name="vote" class="triangle-down" value="-1">downvote</button>
-    </form>
-  <% end %>
-<% end %>
+<div class="question-container show-page-question-container">
+  <div class="container question-show-page">
+    <% if logged_in? %>
+      <% if @question.user_has_voted?(current_user) %>
 
-<p><%= @question.total_votes %></p>
-<h3><%= @question.title %></h3>
-<p><%= @question.body %> </p>
-<p><%= @question.user.username %></p>
+        <form method="post" action="/votes/<%= @question.get_vote_id(current_user) %>">
+          <input type="hidden" name="_method" value="put">
+          <button type="submit" name="vote" class= "triangle-up" value="1"></button>
+          <button type="submit" name="vote" class= "triangle-down" value="-1"></button>
+        </form>
+      <% else %>
+        <form method="post" action="/votes" >
+          <input type="hidden" name="question_id" value="<%= @question.id %>">
+          <button type="submit" name="vote" class= "triangle-up" value="1"></button>
+          <button type="submit" name="vote" class="triangle-down" value="-1"></button>
+        </form>
+
+      <% end %>
+    <% end %>
+  </div>
+
+  <p><%= @question.total_votes %></p>
+  <div class="title-container">
+    <h3 class="question-show-title"><%= @question.title %></h3>
+    <p><%= @question.body %> </p>
+    <p><%= @question.user.username %></p>
+  </div>
+</div>
 
 <% if allowed?(@question) %>
   <form method="post" action="/questions/<%= @question.id %>">
@@ -82,22 +90,23 @@
   <%= erb :"_addcomments" %>
   <button name="commentable" type="submit" value="<%= answer.id %>">Submit your comment</button>
   </form>
-
-  <% if logged_in? %>
-    <% if answer.user_has_voted?(current_user) %>
-      <form method="post" action="/votes/<%= answer.get_vote_id(current_user) %>">
-        <input type="hidden" name="_method" value="put">
-        <button type="submit" name="vote" class= "triangle-up" value="1">upvote</button>
-        <button type="submit" name="vote" class="triangle-down" value="-1">downvote</button>
-      </form>
-    <% else %>
-      <form method="post" action="/votes" >
-        <input type="hidden" name="answer_id" value="<%= answer.id %>">
-        <button type="submit" name="vote" class= "triangle-up" value="1">upvote</button>
-        <button type="submit" name="vote" class="triangle-down" value="-1">downvote</button>
-      </form>
+  <div class="container">
+    <% if logged_in? %>
+      <% if answer.user_has_voted?(current_user) %>
+        <form method="post" action="/votes/<%= answer.get_vote_id(current_user) %>">
+          <input type="hidden" name="_method" value="put">
+          <button type="submit" name="vote" class= "triangle-up" value="1"></button>
+          <button type="submit" name="vote" class="triangle-down" value="-1"></button>
+        </form>
+      <% else %>
+        <form method="post" action="/votes" >
+          <input type="hidden" name="answer_id" value="<%= answer.id %>">
+          <button type="submit" name="vote" class= "triangle-up" value="1"></button>
+          <button type="submit" name="vote" class="triangle-down" value="-1"></button>
+        </form>
+      <% end %>
     <% end %>
-  <% end %>
+  </div>
 <% end %>
 <form method="post" action="/answers">
   <label for="text">Add your answer</label>
