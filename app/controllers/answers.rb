@@ -29,3 +29,10 @@ delete '/answers/:id' do
   answer.destroy
   redirect "/questions/#{question.id}"
 end
+
+delete '/answers/:answer_id/comments/:id' do
+  question = Question.find(params[:submit])
+  comment = Comment.find(params[:id])
+  comment.destroy
+  redirect "/questions/#{question.id}"
+end

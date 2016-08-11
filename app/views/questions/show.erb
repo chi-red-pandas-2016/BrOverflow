@@ -52,8 +52,15 @@
 <% end %>
 
   <% answer.comments.each do |comment| %>
-  <p> <%= comment.text %> </p>
-  <p><strong><%= comment.user.username %></strong></p>
+    <p> <%= comment.text %> </p>
+    <p><strong><%= comment.user.username %></strong></p>
+
+    <% if allowed?(comment) %>
+      <form method="post" action="/answers/<%= answer.id %>/comments/<%= comment.id%>">
+      <%= erb :'/_delete' %>
+      </form>
+
+    <% end %>
   <% end %>
 
   <form method="post" action="/answers/<%= answer.id %>/comments">
