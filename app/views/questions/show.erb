@@ -18,6 +18,9 @@
 <h3><%= @question.title %></h3>
 <p><%= @question.body %> </p>
 <p><%= @question.user.username %></p>
+ <form method="post" action="/questions/<%= @question.id %>">
+  <%= erb :'/_delete' %>
+ </form>
 <% @question.comments.each do |comment| %>
   <p> <%= comment.text %> </p>
   <p> <%= comment.user.username %> </p>
@@ -29,15 +32,14 @@
 
 
 <% @answers.each do |answer| %>
-  <p>-----------------</p>
   <p><%= answer.text %></p>
   <p><%= answer.total_votes %></p>
   <p><strong><%= answer.user.username %></strong></p>
 
   <% answer.comments.each do |comment| %>
   <p> <%= comment.text %> </p>
-  <p> <%= comment.user.username %> </p>
-<% end %>
+  <p><strong><%= comment.user.username %></strong></p>
+  <% end %>
 
   <form method="post" action="/answers/<%= answer.id %>/comments">
   <%= erb :"_addcomments" %>
@@ -59,10 +61,7 @@
       </form>
     <% end %>
   <% end %>
-
 <% end %>
-
-<p><%= @errors %></p>
 <form method="post" action="/answers">
   <label for="text">Add your answer</label>
   <br>
