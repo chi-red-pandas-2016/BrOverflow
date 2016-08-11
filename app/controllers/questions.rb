@@ -35,7 +35,7 @@ post '/questions/:question_id/comments' do
   comment = question.comments.new(params[:comment])
   comment.user_id = session[:user_id]
   comment
-  if question.save
+  if comment.save
   else
     @errors = @comment.errors.full_messages
   end
@@ -43,6 +43,8 @@ post '/questions/:question_id/comments' do
   @answers = Answer.where(question_id: @question.id)
   erb :"/questions/show"
 end
+
+
 
 
 
