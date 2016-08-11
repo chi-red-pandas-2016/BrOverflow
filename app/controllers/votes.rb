@@ -10,8 +10,10 @@ end
 
 put '/votes/:vote_id' do
   vote = Vote.find(params[:vote_id])
-  if params[:value] != vote.value
+  if params[:vote] != vote.value.to_s
     vote.update_attribute(:value, params[:vote])
+  else
+    vote.destroy
   end
   redirect back
 end
