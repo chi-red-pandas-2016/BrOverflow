@@ -8,7 +8,17 @@ post '/answers' do
   else
     @errors = @answer.errors.full_messages
   end
-  @question = Question.find(params[:question])
-  @answers = Answer.where(question_id: @question.id)
-  erb :"/questions/show"
+  redirect "/questions/#{@answer.question.id}"
+end
+
+post '/answers/:answer_id/comments' do
+  answer = Answer.find(params[:commentable])
+  puts '----------------------------'
+  comment = answer.comments.new(params[:comment])
+  comment.user_id = session[:user_id]
+  if comment.save
+  else
+    @errors = @comment.errors.full_messages
+  end
+  redirect "/questions/#{answer.question.id}"
 end
