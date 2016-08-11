@@ -22,3 +22,7 @@ post '/answers/:answer_id/comments' do
   end
   redirect "/questions/#{answer.question.id}"
 end
+
+put '/answers/:answer_id' do
+  p "answer"
+end

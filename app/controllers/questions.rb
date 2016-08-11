@@ -45,6 +45,10 @@ post '/questions/:question_id/comments' do
 end
 
 
+put '/questions/:question_id' do
+ p "hello"
+end
+
 
 
 
