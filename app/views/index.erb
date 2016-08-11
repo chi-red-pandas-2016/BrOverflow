@@ -1,6 +1,6 @@
 <% if @questions %>
   <% @questions.each do |question| %>
-      <p><%= erb :"/questions/_questions_list", locals: {question: question} %></p>
+    <p><%= erb :"/questions/_questions_list", locals: {question: question} %></p>
   <% end %>
 <% end %>
 

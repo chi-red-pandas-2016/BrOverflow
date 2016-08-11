@@ -3,6 +3,7 @@
     <h1><a href="/questions">BROverflow</a></h1>
     <% if logged_in? %>
     <li><a href="/logout">Logout</a></li>
+    <li><a href="/user/<%= session[:user_id]%>"
     <% else %>
     <li><a href="/login">Log in</a></li>
     <li><a href="/users/new">Register</a></li>

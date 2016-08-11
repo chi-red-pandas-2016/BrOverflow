@@ -23,10 +23,6 @@ post '/answers/:answer_id/comments' do
   redirect "/questions/#{answer.question.id}"
 end
 
-
-put '/answers/:answer_id' do
-  p "answer"
-
 delete '/answers/:id' do
   question = Question.find_by(id: params[:submit])
   answer = Answer.find(params[:id])
