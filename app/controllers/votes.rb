@@ -1,7 +1,11 @@
 post '/votes' do
-  question = Question.find(params[:question_id])
-  Vote.create(user_id: session[:user_id], voteable: question, value: params[:vote])
-  redirect '/questions'
+  if params[:question_id]
+    voteable_type = Question.find(params[:question_id])
+  else
+    voteable_type = Answer.find(params[:answer_id])
+  end
+  Vote.create(user_id: session[:user_id], voteable: voteable_type, value: params[:vote])
+  redirect back
 end
 
 put '/votes/:vote_id' do
@@ -9,5 +13,5 @@ put '/votes/:vote_id' do
   if params[:value] != vote.value
     vote.update_attribute(:value, params[:vote])
   end
-  redirect '/questions'
+  redirect back
 end
