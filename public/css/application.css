@@ -66,6 +66,7 @@
 .triangle-down {
   width: 0;
   height: 0;
+<<<<<<< HEAD
   border-left: 12.5px solid transparent;
   border-right: 12.5px solid transparent;
   border-bottom: 12.5px solid transparent;
@@ -133,4 +134,15 @@ ul {
 
 .metadata {
   font-size: .7em
+=======
+  border-left: 25px solid transparent;
+  border-right: 25px solid transparent;
+  border-top: 50px solid red;
+  padding: 0;
+  background-color: white;
+}*/
+
+.clicked-on {
+  color: yellow;
+>>>>>>> master
 }
