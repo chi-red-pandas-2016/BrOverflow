@@ -1,8 +1,8 @@
 <% if @questions %>
   <% @questions.each do |question| %>
-    <p><%= erb :"/questions/_questions_list", locals: {question: question} %></p>
+    <%= erb :"/questions/_questions_list", locals: {question: question} %>
   <% end %>
 <% end %>
 
-  <p><a href="/questions/new">Ask a question!</a></p>
+<p><a href="/questions/new">Ask a question!</a></p>
 
